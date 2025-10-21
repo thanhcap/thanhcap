@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Submit Your Blog Post | Voices of Success</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #182642;
+      --gold: #D1A24A;
+      --light: #F9FAFB;
+      --gray: #6D758D;
+      --border: #E3E6EA;
+      --radius: 16px;
+      --shadow: 0 2px 16px 0 rgba(24,38,66,0.08);
+    }
+    /* General Styles */
+    body {
+      font-family: 'Roboto', sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+      color: var(--navy);
+    }
+
+    .container {
+      width: 90%;
+      margin: 30px auto 40px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 20px;
+      max-height: 80vh;
+      overflow-y: auto;
+      padding-right: 10px;
+    }
+
+    /* Header */
+    header {
+      background: #182642;
+      color: #fff;
+      padding: 20px 7%;
+      text-align: center;
+      border-radius: var(--radius) var(--radius) 0 0;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
+    }
+
+    header p {
+      font-size: 1.2rem;
+      margin-top: 10px;
+    }
+
+    /* Card Styles */
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      height: 600px;
+    }
+
+    .card textarea {
+      width: 100%;
+      height: 300px;
+      padding: 10px;
+      font-size: 1rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      resize: vertical;
+      margin-bottom: 15px;
+      flex-shrink: 0;
+    }
+
+    .card input[type="file"] {
+      margin-top: 10px;
+      display: block;
+      flex-shrink: 0;
+    }
+
+    .card img {
+      width: 100%;
+      margin-top: 15px;
+      border-radius: 8px;
+      flex-grow: 1;
+      object-fit: contain;
+      max-height: 200px;
+      display: none;
+    }
+
+    footer {
+      text-align: center;
+      color: #888;
+      font-size: 0.95rem;
+      margin-top: 20px;
+      padding: 20px 0;
+      background: white;
+      border-top: 1px solid var(--border);
+    }
+
+    /* Mini Padlet Styles */
+    #mini-padlet {
+      width: 90%;
+      max-width: 850px;
+      margin: 20px auto 40px;
+      background: white;
+      padding: 20px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    #mini-padlet h2 {
+      margin-top: 0;
+      color: var(--navy);
+    }
+
+    #padlet-form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    #padlet-form input[type="text"],
+    #padlet-form textarea {
+      padding: 10px;
+      font-size: 1rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      resize: vertical;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    #padlet-form textarea {
+      height: 100px;
+    }
+
+    #padlet-form input[type="file"] {
+      margin-top: 5px;
+    }
+
+    #padlet-form button {
+      align-self: flex-start;
+      background: var(--gold);
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      font-size: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s;
+      font-weight: 700;
+      margin-top: 10px;
+    }
+
+    #padlet-form button:hover {
+      background: #b2872f;
+    }
+
+    #notes-container {
+      margin-top: 30px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 20px;
+      max-height: 60vh;
+      overflow-y: auto;
+      padding-right: 10px;
+    }
+
+    .note-card {
+      background: white;
+      padding: 20px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      max-height: 600px;
+      position: relative;
+    }
+
+    .note-card img {
+      width: 100%;
+      margin-top: 15px;
+      border-radius: 8px;
+      object-fit: contain;
+      max-height: 200px;
+      display: block;
+    }
+
+    .note-card button.delete-note {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: #e74c3c;
+      border: none;
+      color: white;
+      padding: 5px 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: background 0.2s;
+    }
+
+    .note-card button.delete-note:hover {
+      background: #c0392b;
+    }
+
+    .note-card p {
+      margin: 5px 0;
+      word-wrap: break-word;
+    }
+
+    .note-card .note-name {
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--navy);
+    }
+
+    .note-card .note-famous {
+      font-style: italic;
+      color: var(--gray);
+      font-size: 0.95rem;
+      margin-bottom: 10px;
+    }
+
+    .note-card .note-content {
+      flex-grow: 1;
+      white-space: pre-wrap;
+      font-size: 1rem;
+      color: var(--navy);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Voices of Success – Student Submission</h1>
+  </header>
+
+  <div style="max-width:850px; margin:20px auto 0; padding:0 50px; text-align:left;">
+    <button onclick="window.location.href='tests11.html'" 
+      style="
+        background:#eee;
+        color:#182642;
+        border:1px solid #ccc;
+        padding:8px 18px;
+        border-radius:6px;
+        cursor:pointer;
+        font-size:0.95rem;
+        transition:background 0.2s;
+      "
+      onmouseover="this.style.background='#ddd'"
+      onmouseout="this.style.background='#eee'">
+      ← Back to Home
+    </button>
+  </div>
+
+  <section id="mini-padlet">
+    <h2>Mini Padlet</h2>
+    <form id="padlet-form">
+      <input type="text" id="student-name" placeholder="Your Name" required>
+      <input type="text" id="famous-name" placeholder="Famous Person's Name" required>
+      <textarea id="padlet-blog-content" placeholder="Enter blog content..." required></textarea>
+      <input type="file" id="padlet-image" accept="image/*">
+      <button type="submit">Add Note</button>
+    </form>
+    <div id="notes-container">
+      <!-- Notes will appear here -->
+    </div>
+  </section>
+
+  <footer>
+    © 2025 Voices of Success Project | All Rights Reserved
+  </footer>
+
+
+<!-- Firebase SDKs + Firestore + Storage + Realtime Padlet script -->
+<script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-storage.js"></script>
+
+<script>
+  // 🔒 Replace these placeholders with your actual Firebase config before deployment
+  const firebaseConfig = {
+  apiKey: "AIzaSyBQCo4XUIXxeujllGCJWANwUednDJZMNDM",
+  authDomain: "voices-of-success.firebaseapp.com",
+  projectId: "voices-of-success",
+  storageBucket: "voices-of-success.firebasestorage.app",
+  messagingSenderId: "559742569473",
+  appId: "1:559742569473:web:6e3325a27706d642048400",
+  measurementId: "G-N4WGKSXR4L"
+};
+
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+  const storage = firebase.storage();
+
+  const padletForm = document.getElementById('padlet-form');
+  const notesContainer = document.getElementById('notes-container');
+
+  padletForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const studentName = document.getElementById('student-name').value.trim();
+    const famousName = document.getElementById('famous-name').value.trim();
+    const blogContent = document.getElementById('padlet-blog-content').value.trim();
+    const file = document.getElementById('padlet-image').files[0];
+
+    if (!studentName || !famousName || !blogContent) return alert('Please fill all fields.');
+
+    let imageUrl = null;
+    if (file) {
+      const storageRef = storage.ref('padlet_images/' + Date.now() + '_' + file.name);
+      await storageRef.put(file);
+      imageUrl = await storageRef.getDownloadURL();
+    }
+
+    await db.collection('notes').add({
+      studentName, famousName, blogContent, imageUrl, timestamp: firebase.firestore.FieldValue.serverTimestamp()
+    });
+
+    padletForm.reset();
+  });
+
+  // Real-time updates
+  db.collection('notes').orderBy('timestamp', 'desc').onSnapshot(snapshot => {
+    notesContainer.innerHTML = '';
+    snapshot.forEach(doc => {
+      const note = doc.data();
+      const div = document.createElement('div');
+      div.className = 'note-card';
+      div.innerHTML = `
+        <p class="note-name"><strong>${escapeHtml(note.studentName || '')}</strong></p>
+        <p class="note-famous"><em>${escapeHtml(note.famousName || '')}</em></p>
+        <p class="note-content">${escapeHtml(note.blogContent || '')}</p>
+        ${note.imageUrl ? `<img src="${note.imageUrl}" alt="Image for ${escapeHtml(note.studentName || '')}">` : ''}
+      `;
+      notesContainer.appendChild(div);
+    });
+  });
+
+  function escapeHtml(str) {
+    if (!str) return '';
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
+  }
+</script>
+</body>
+
+</html>
